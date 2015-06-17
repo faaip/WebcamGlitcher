@@ -5,6 +5,7 @@ PImage img1;
 int w=640, h=480;
 
 boolean bright = true;
+boolean greyScale;
 int shiftAmount = 4;
 int grid = 1;
 
@@ -50,7 +51,10 @@ void draw() {
   }
   updatePixels();
 
-  println("Shift amount: " + shiftAmount + " Frame rate: " + (int) frameRate);
+  if (greyScale) {
+    filter(GRAY);
+  }
+  println("Shift amount: " + shiftAmount + " Frame rate: " + (int) frameRate + " Greyscale: " + greyScale) ;
 }
 
 void keyPressed()
@@ -79,6 +83,15 @@ void keyPressed()
       bright = true;
     }
     break;
+  case ENTER:
+    if (!greyScale) {
+      greyScale = true;
+      break;
+    }
+    if (greyScale) {
+      greyScale = false;
+      break;
+    }
   }
 }
 
