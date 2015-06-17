@@ -20,6 +20,8 @@ void draw() {
   loadPixels(); // Fills pixelarray
   float mouseMap = (int) map(mouseX, 0, width, 0, 255*3); // Brightness threshold mapped to mouse coordinates
 
+if(shiftAmount > 24 || shiftAmount < 0){shiftAmount = 0;};
+
   for (int y = 0; y< h; y++)
   {
     for (int x = 0; x< w; x++)
@@ -54,6 +56,7 @@ void draw() {
   if (greyScale) {
     filter(GRAY);
   }
+
   println("Shift amount: " + shiftAmount + " Frame rate: " + (int) frameRate + " Greyscale: " + greyScale) ;
 }
 
