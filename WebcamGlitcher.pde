@@ -4,7 +4,7 @@ Capture video;
 PImage img1;
 int w=640, h=480;
 
-boolean bright;
+boolean bright = true;
 int shiftAmount = 0;
 int grid = 1;
 
@@ -29,20 +29,17 @@ void draw() {
       int g = (c >> 8) & 0xFF;  
       int b = c & 0xFF; 
 
-      if (bright)
-      {
-        if (r+g+b > 100*3) {
-          if(y %grid == 0){
+      if (y %grid == 0) {
+
+        if (bright)
+        {
           pixels[y*w+x] = c << shiftAmount;
-          }
         }
-      }
-      
-       if (!bright)
-      {
-        if (r+g+b < 100*3) {
-          if(y %grid == 0){
-          pixels[y*w+x] = c << shiftAmount;
+
+        if (!bright)
+        {
+          if (r+g+b < 100*3) {
+            pixels[y*w+x] = c << shiftAmount;
           }
         }
       }
@@ -56,6 +53,7 @@ void captureEvent(Capture c) {
 }
 
 void keyPressed()
+// Keyboard controls
 {
   if (keyCode == UP)
   {
@@ -65,27 +63,29 @@ void keyPressed()
   {
     shiftAmount--;
   }
-    if (keyCode == LEFT)
+  if (keyCode == LEFT)
   {
-    if(grid > 1)
+    if (grid > 1)
     {
-    grid--;
+      grid--;
     }
   }
-    if (keyCode == RIGHT)
+  if (keyCode == RIGHT)
   {
     grid++;
   }
-  
-  
-  if(keyCode == TAB)
+
+
+  if (keyCode == TAB)
   {
-    if(bright){bright = false;}
-    if(!bright){bright = true;}
-    
+    if (bright) {
+      bright = false;
+    }
+    if (!bright) {
+      bright = true;
+    }
+
     println(bright);
   }
-  
-  
 }
 
