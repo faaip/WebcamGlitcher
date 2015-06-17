@@ -16,9 +16,8 @@ void setup() {
 }
 
 void draw() { 
-  loadPixels();
-  
-  float mouseMap = (int) map(mouseX,0,width,0,255*3);
+  loadPixels(); // Fills pixelarray
+  float mouseMap = (int) map(mouseX, 0, width, 0, 255*3); // Brightness threshold mapped to mouse coordinates
 
   for (int y = 0; y< h; y++)
   {
@@ -35,16 +34,15 @@ void draw() {
 
         if (bright)
         {
-                    if (r+g+b > mouseMap) {
-
-          pixels[y*w+x] = c << shiftAmount;
-                    }
+          if (r+g+b > mouseMap) {
+            pixels[y*w+x] = c << shiftAmount; // Bit-shift based on shift amount
+          }
         }
 
         if (!bright)
         {
           if (r+g+b < mouseMap) {
-            pixels[y*w+x] = c << shiftAmount;
+            pixels[y*w+x] = c << shiftAmount; // Bit-shift based on shift amount
           }
         }
       }
@@ -53,42 +51,36 @@ void draw() {
   updatePixels();
 }
 
-void captureEvent(Capture c) { 
-  c.read();
-}
-
 void keyPressed()
 // Keyboard controls
 {
-  if (keyCode == UP)
-  {
+  switch(keyCode) {
+  case UP:
     shiftAmount++;
-  }
-  if (keyCode == DOWN)
-  {
+    break;
+  case DOWN:
     shiftAmount--;
-  }
-  if (keyCode == LEFT)
-  {
-    if (grid > 1)
-    {
+    break;
+  case LEFT:
+    if (grid > 1) {
       grid--;
-    }
-  }
-  if (keyCode == RIGHT)
-  {
-    grid++;
-  }
-
-
-  if (keyCode == TAB)
-  {
+    }    
+    break;
+  case RIGHT:
+    grid++;    
+    break;
+  case TAB:
     if (bright) {
       bright = false;
     }
     if (!bright) {
       bright = true;
     }
+    break;
   }
+}
+
+void captureEvent(Capture c) { 
+  c.read();
 }
 
