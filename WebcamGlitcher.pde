@@ -49,6 +49,8 @@ void draw() {
     }
   }
   updatePixels();
+
+  println("Shift amount: " + shiftAmount + " Frame rate: " + (int) frameRate);
 }
 
 void keyPressed()
