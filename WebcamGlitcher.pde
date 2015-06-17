@@ -5,7 +5,7 @@ PImage img1;
 int w=640, h=480;
 
 boolean bright = true;
-int shiftAmount = 0;
+int shiftAmount = 4;
 int grid = 1;
 
 
@@ -17,6 +17,8 @@ void setup() {
 
 void draw() { 
   loadPixels();
+  
+  float mouseMap = (int) map(mouseX,0,width,0,255*3);
 
   for (int y = 0; y< h; y++)
   {
@@ -33,12 +35,15 @@ void draw() {
 
         if (bright)
         {
+                    if (r+g+b > mouseMap) {
+
           pixels[y*w+x] = c << shiftAmount;
+                    }
         }
 
         if (!bright)
         {
-          if (r+g+b < 100*3) {
+          if (r+g+b < mouseMap) {
             pixels[y*w+x] = c << shiftAmount;
           }
         }
@@ -84,8 +89,6 @@ void keyPressed()
     if (!bright) {
       bright = true;
     }
-
-    println(bright);
   }
 }
 
